@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proximity Sensor Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        #status {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Proximity Sensor Test</h2>
+    <p>Move your hand close to your phone's sensor to test.</p>
+    <div id="status">Waiting for sensor data...</div>
+
+    <script>
+        if ('ondeviceproximity' in window) {
+            window.addEventListener('deviceproximity', function(event) {
+                let distance = event.value;
+                let statusText = document.getElementById("status");
+
+                if (distance < 5) { 
+                    statusText.innerHTML = "Object is very close!";
+                    statusText.style.color = "red";
+                } else {
+                    statusText.innerHTML = "No nearby object detected.";
+                    statusText.style.color = "green";
+                }
+            });
+        } else {
+            document.getElementById("status").innerHTML = "Proximity sensor not supported on this device.";
+        }
+    </script>
+</body>
+</html>
